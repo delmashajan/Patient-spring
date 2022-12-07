@@ -5,7 +5,9 @@ import com.nest.patientapp_backend.model.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 
@@ -14,7 +16,7 @@ public class PatientController {
     private PatientDao dao;
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
-    public String Addpatient(@RequestBody Patient p){
+    public Map<String, String> Addpatient(@RequestBody Patient p){
 
         System.out.println(p.getPatientname().toString());
         System.out.println(p.getPatientmobile().toString());
@@ -22,7 +24,9 @@ public class PatientController {
         System.out.println(p.getDoctorname().toString());
 
         dao.save(p);
-        return "welcome to add patient";
+        HashMap<String,String> map = new HashMap<>();
+        map.put("status","success");
+        return map;
     }
     @CrossOrigin(origins = "*")
     @GetMapping("/view")
